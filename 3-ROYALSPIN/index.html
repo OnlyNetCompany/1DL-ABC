@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casino Online</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    body {
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header {
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    header img {
+      width: 300px;
+      height: auto;
+    }
+    h1, p, .cta-button {
+      position: relative;
+      z-index: 1;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      max-width: 500px;
+    }
+    .cta-button {
+      background: #f5b608;
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .cta-button:hover {
+      background: #1ebe5d;
+    }
+    .notification {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #333;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.5s, transform 0.5s;
+      font-size: 0.9rem;
+      max-width: 300px;
+      z-index: 2;
+    }
+    .notification.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .background-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .coin {
+      position: fixed;
+      top: -50px;
+      font-size: 24px;
+      animation: fall linear infinite;
+      z-index: 0;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(110vh);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Imagen de fondo -->
+<img src="./img/FONDO.png" alt="Fondo Casino" class="background-image">
+
+<!-- Contenedor de moneditas -->
+<div id="coins"></div>
+
+<header>
+  <img src="./img/NEW LOGO - SIN FONDO.png" alt="Logo Casino" id="logo">
+</header>
+
+<h1>¡Bienvenido al Casino Online!</h1>
+<p>Disfrutá de los mejores juegos y premios. ¿Listo para empezar?</p>
+<a class="cta-button" href="https://wa.me/XXXXXXXXXXX" target="_blank">Contactar por WhatsApp</a>
+
+<div class="notification" id="notification"></div>
+
+<script>
+  const mensajes = [
+    "\u2728 Laura ganó $500 en Sweet Bonanza!",
+    "\uD83D\uDCB0 Juan acaba de retirar su premio!",
+    "\uD83C\uDFB2 Sofía está girando en Gates of Olympus!",
+    "\uD83C\uDF40 Marcelo duplicó su saldo en Big Bass Bonanza!",
+    "\uD83C\uDF89 Victoria ganó 200 giros gratis en Wolf Gold!"
+  ];
+
+  const notification = document.getElementById('notification');
+
+  function mostrarMensaje() {
+    const mensaje = mensajes[Math.floor(Math.random() * mensajes.length)];
+    notification.textContent = mensaje;
+    notification.classList.add('show');
+    setTimeout(() => {
+      notification.classList.remove('show');
+    }, 4000);
+  }
+
+  setInterval(mostrarMensaje, 6000);
+
+  // Script para crear moneditas
+  const coinsContainer = document.getElementById('coins');
+
+  function crearMoneda() {
+    const coin = document.createElement('div');
+    coin.classList.add('coin');
+    coin.textContent = '🪙';
+    coin.style.left = Math.random() * 100 + 'vw';
+    coin.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    coinsContainer.appendChild(coin);
+
+    setTimeout(() => {
+      coin.remove();
+    }, 5000);
+  }
+
+  setInterval(crearMoneda, 300);
+</script>
+
+</body>
+</html>
